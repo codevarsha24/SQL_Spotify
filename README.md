@@ -74,7 +74,6 @@ In advanced stages, the focus shifts to improving query performance. Some optimi
 SELECT TRACK 
 FROM spotify 
 WHERE stream > 1000000000;
-   
 ```
 
 2. List all albums along with their respective artists.
@@ -109,14 +108,63 @@ ORDER BY total_no_of_tracks desc;
 
 ### Medium Level
 1. Calculate the average danceability of tracks in each album.
+```sql
+SELECT album, ----1
+avg(danceability) as avg_danceability----2
+FROM spotify 
+GROUP BY 1
+ORDER BY 2 desc;
+```
+   
 2. Find the top 5 tracks with the highest energy values.
+```sql
+SELECT track, ---1
+ avg(energy) ----2
+FROM spotify
+GROUP BY 1
+ORDER BY 2 desc
+LIMIT 5;
+```
+   
 3. List all tracks along with their views and likes where `official_video = TRUE`.
+```sql
+SELECT track, 
+SUM(views) as total_views, 
+SUM(likes) as total_likes
+FROM Spotify
+WHERE official_video = 'TRUE'
+GROUP BY 1 
+ORDER BY 2 desc;
+```
+   
 4. For each album, calculate the total views of all associated tracks.
+```sql
+SELECT 
+   album, 
+   track,
+  SUM(views) as total_views
+FROM spotify
+GROUP BY 1,2
+ORDER BY 3 desc;
+```
+   
 5. Retrieve the track names that have been streamed on Spotify more than YouTube.
-
+```sql
+SELECT 
+  track,
+  stream
+FROM spotify
+WHERE   most_played_on = 'Spotify'
+ORDER BY 2 desc;
+```
+    
 ### Advanced Level
 1. Find the top 3 most-viewed tracks for each artist using window functions.
+
+   
 2. Write a query to find tracks where the liveness score is above the average.
+
+   
 3. **Use a `WITH` clause to calculate the difference between the highest and lowest energy values for tracks in each album.**
 ```sql
 WITH cte
@@ -135,8 +183,10 @@ FROM cte
 ORDER BY 2 DESC
 ```
    
-5. Find tracks where the energy-to-liveness ratio is greater than 1.2.
-6. Calculate the cumulative sum of likes for tracks ordered by the number of views, using window functions.
+4. Find tracks where the energy-to-liveness ratio is greater than 1.2.
+
+   
+5. Calculate the cumulative sum of likes for tracks ordered by the number of views, using window functions.
 
 
 Here’s an updated section for your **Spotify Advanced SQL Project and Query Optimization** README, focusing on the query optimization task you performed. You can include the specific screenshots and graphs as described.
